@@ -1,0 +1,61 @@
+.model medium
+.stack 100h
+.data
+
+var db 0
+loop1 db 0
+loop2 db 0
+loop3 db 0
+looper db 0
+var2 db 0
+incre db 0
+.code
+
+mov var,65
+mov var2,64
+mov loop1,1
+mov loop2,1
+mov loop3,1
+mov incre,65
+mov cx,16
+loop_main:
+     loop loop_1
+     
+newline:
+     inc incre 
+     mov al,incre
+     mov var2,al
+     mov loop1,1
+     inc loop3
+     mov al,loop3
+     mov loop2,al
+     mov al,var2
+     mov var,al
+     MOV dl,10
+     MOV ah,02h
+     INT 21h
+     MOV dl,13
+     MOV ah,02h
+     INT 21h
+     jmp loop_main
+     
+loop_1:
+      cmp loop1,0
+      JBE newline
+      dec loop1
+      JMP loop_2
+loop_2:
+      mov dl,var
+      mov ah,02h
+      int 21h
+      inc var
+      cmp var,74
+      JE exit
+      dec loop2
+      cmp loop2,0
+      JBE  loop_1
+loop loop_2
+exit:
+    mov ah,4ch
+    int 21h
+end
